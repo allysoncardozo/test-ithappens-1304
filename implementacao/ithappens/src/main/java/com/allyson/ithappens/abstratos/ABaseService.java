@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import javassist.tools.rmi.ObjectNotFoundException;
+import com.allyson.ithappens.exceptions.ObjectNotFoundException;
+
 
 //Objeto T - é o tipo de objeto que iremos retornar e/ou manipuar nas buscas
 //Objeto E - seria o tipo de repositório que será utilizado pela classe do tipo T
@@ -27,15 +28,15 @@ public abstract class ABaseService<T, E> {
 	//Método buscar genérico
 	//todas as classes que herdarem de ABAseService terão o método de 
 	//Buscar por ID implementado
-	public T buscar(Integer id) throws ObjectNotFoundException {
+	public T buscar(Integer id) {
 		Optional<T> obj = ((JpaRepository)repo).findById(id);		
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id " + id + ", Tipo: " + getGenericName()));
 	}
 	
 	protected String getGenericName()
     {
-        Class<T> class1 = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        	
-		return class1.getTypeName();
+        Class<T> class1 = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];        	
+        
+		return class1.getSimpleName();
     }
 }

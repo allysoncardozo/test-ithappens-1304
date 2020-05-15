@@ -20,7 +20,7 @@ public class FilialResource {
 	private FilialService service;
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) throws ObjectNotFoundException {		
+	public ResponseEntity<?> find(@PathVariable Integer id) {		
 		  Filial c1 = service.buscar(id);		  
 		  return ResponseEntity.ok().body(c1);
 	}
