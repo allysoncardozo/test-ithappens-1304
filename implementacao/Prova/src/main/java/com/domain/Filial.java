@@ -1,7 +1,10 @@
 package com.domain;
 
+import javax.persistence.Entity;
+
 import com.abstracts.ABase;
 
+@Entity
 public class Filial extends ABase<Filial> {
 
 	private static final long serialVersionUID = 1L;

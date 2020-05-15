@@ -11,19 +11,19 @@ import com.domain.Filial;
 import com.repositories.FilialRepository;
 
 @SpringBootApplication
-public class ProvaApplication implements CommandLineRunner{
+public class ProvaApplication {//implements CommandLineRunner{
 
-	@Autowired
-	private FilialRepository repoFilial;
-	@Autowired
+	//@Autowired
+	//private FilialRepository repoFilial;	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProvaApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		Filial f1 = new Filial(null, "Filial de Teste");
-		repoFilial.saveAll(Arrays.asList(f1));;
-	}
+	//@Override
+	//public void run(String... args) throws Exception {
+		
+		//Filial f1 = new Filial(null, "Filial de Teste");
+		//repoFilial.saveAll(Arrays.asList(f1));;
+	//}
 }
