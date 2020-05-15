@@ -1,10 +1,10 @@
-package com.prova;
+package com.allyson.ithappens;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProvaApplicationTests {
+class IthappensApplicationTests {
 
 	@Test
 	void contextLoads() {

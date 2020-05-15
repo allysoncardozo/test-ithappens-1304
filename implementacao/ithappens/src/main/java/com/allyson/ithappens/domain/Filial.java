@@ -1,8 +1,9 @@
-package com.domain;
+package com.allyson.ithappens.domain;
+
 
 import javax.persistence.Entity;
 
-import com.abstracts.ABase;
+import com.allyson.ithappens.abstratos.ABase;
 
 @Entity
 public class Filial extends ABase<Filial> {
@@ -21,8 +22,12 @@ public class Filial extends ABase<Filial> {
 		super.setId(id);
 		Nome = nome;
 	}
-	public String getNome() { return Nome; 	}
 
-	public void setNome(String nome) { Nome = nome; }
-	
+	public String getNome() {
+		return Nome;
+	}
+
+	public void setNome(String nome) {
+		Nome = nome;
+	}
 }

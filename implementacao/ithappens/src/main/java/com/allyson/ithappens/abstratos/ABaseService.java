@@ -1,11 +1,13 @@
-package com.abstracts;
+package com.allyson.ithappens.abstratos;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Optional;
+
 import javax.persistence.MappedSuperclass;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import com.interfaces.IBaseRepository;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -26,7 +28,7 @@ public abstract class ABaseService<T, E> {
 	//todas as classes que herdarem de ABAseService terão o método de 
 	//Buscar por ID implementado
 	public T buscar(Integer id) throws ObjectNotFoundException {
-		Optional<T> obj = ((IBaseRepository)repo).findById(id);		
+		Optional<T> obj = ((JpaRepository)repo).findById(id);		
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id " + id + ", Tipo: " + getGenericName()));
 	}
 	

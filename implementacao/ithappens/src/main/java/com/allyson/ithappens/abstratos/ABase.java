@@ -1,4 +1,4 @@
-package com.abstracts;
+package com.allyson.ithappens.abstratos;
 
 import java.io.Serializable;
 import javax.persistence.GeneratedValue;
@@ -12,8 +12,8 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class ABase<T> implements Serializable {
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
