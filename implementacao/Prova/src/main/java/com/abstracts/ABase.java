@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+//Classe abstrata que que será usada de Herança nas classes de domínio
+//todas as classes que herdarem dela terão automaticamente implementados o serializable
+//terão a propriedade Id como chave primária
+
 @MappedSuperclass
 public abstract class ABase<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
