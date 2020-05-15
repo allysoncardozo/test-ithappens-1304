@@ -1,13 +1,13 @@
-package com.avaliacao.br;
+package com.prova;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AvaliacaoApplication {
+public class ProvaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AvaliacaoApplication.class, args);
+		SpringApplication.run(ProvaApplication.class, args);
 	}
 
 }
