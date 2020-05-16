@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.allyson.ithappens.exceptions.ObjectNotFoundException;
 
 
-//Objeto T - é o tipo de objeto que iremos retornar e/ou manipuar nas buscas
-//Objeto E - seria o tipo de repositório que será utilizado pela classe do tipo T
+//Objeto T - é o tipo de objeto que iremos retornar e/ou manipuar nas buscas. São as Entidades de Domínio
+//Objeto E - seria o tipo de repositório que será utilizado pela classe do tipo T. Os Controllers ou Repositories
 //aqui ficarão encapsulados todos os métodos que as classes de serviço utilizará 
 //e que são de igual implementação.
 

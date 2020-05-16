@@ -10,10 +10,12 @@ import javax.persistence.MappedSuperclass;
 //todas as classes que herdarem dela terão automaticamente implementados o serializable
 //terão a propriedade Id como chave primária
 
+//@MappedSuperclass resolve a questão d ter o ID como chave primaria na classe filha
 @MappedSuperclass
 public abstract class ABase<T> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;

@@ -1,6 +1,7 @@
 package com.allyson.ithappens.domain;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ public class Filial extends ABase<Filial> {
 	private String Nome;
 
 	@OneToMany(mappedBy = "Filial")
-	private List<Estoque> Estoques;
+	private List<Estoque> Estoques = new ArrayList<Estoque>();
 	
 	
 	public Filial(){

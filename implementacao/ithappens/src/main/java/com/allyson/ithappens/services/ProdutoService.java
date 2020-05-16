@@ -3,6 +3,7 @@ package com.allyson.ithappens.services;
 import java.util.Arrays;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ import com.allyson.ithappens.repositories.ProdutoRepository;
 @Service
 public class ProdutoService extends ABaseService<Produto, ProdutoRepository>{
 
+	
+	
+	
 	/*//todas as classes que herdarem de ABAseService terão o método de 
 	//Buscar produto pelo Codigo de barras
 	public Produto buscarPorCodigoDeBarras(String codigoDeBarras) {	

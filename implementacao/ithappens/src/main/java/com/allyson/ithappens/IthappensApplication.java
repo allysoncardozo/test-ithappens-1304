@@ -9,25 +9,30 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.allyson.ithappens.classes.Criptografia;
 import com.allyson.ithappens.domain.Filial;
+import com.allyson.ithappens.domain.FormaPagamento;
 import com.allyson.ithappens.domain.Produto;
-import com.allyson.ithappens.domain.StatusItemPedido;
 import com.allyson.ithappens.domain.Usuario;
 import com.allyson.ithappens.repositories.FilialRepository;
+import com.allyson.ithappens.repositories.FormasPagamentoRepository;
+import com.allyson.ithappens.repositories.ItensPedidoRepository;
 import com.allyson.ithappens.repositories.ProdutoRepository;
-import com.allyson.ithappens.repositories.StatusItemPedidoRepository;
 import com.allyson.ithappens.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class IthappensApplication implements CommandLineRunner {
 
+
 	@Autowired
-	StatusItemPedidoRepository repoStatus;
+	UsuarioRepository repoUsuario;
 	@Autowired
 	FilialRepository repoFilial;
 	@Autowired
 	ProdutoRepository repoProduto;
 	@Autowired
-	UsuarioRepository repoUsuario;
+	ItensPedidoRepository repoItensPedido;
+	@Autowired
+	FormasPagamentoRepository repoFormasPagamnto;
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(IthappensApplication.class, args);	
@@ -36,26 +41,20 @@ public class IthappensApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		IniciarStatusItemPedido();
 		IniciarUsuario();
 		IniciarFiliais();
+		//IniciarFormasPagamento();
 		IniciarProdutos();
-	}	
-	private void IniciarUsuario() {
+		IniciarItensPedido();
+	}
 
+	private void IniciarUsuario() {
 		String senhaCriptografada = Criptografia.Criptografar("ithappens");
 		Usuario u = new Usuario(null, "Allyson", senhaCriptografada);		
 		repoUsuario.saveAll(Arrays.asList(u));
+		//UsuarioLogado.AutenticarUsuario(u.getId(), "ithappens");
 	}
-
-	private void IniciarStatusItemPedido() {
-
-		StatusItemPedido s1 = new StatusItemPedido(null, "Ativo");
-		StatusItemPedido s2 = new StatusItemPedido(null, "Cancelado");
-		StatusItemPedido s3 = new StatusItemPedido(null, "Processado");
-		repoStatus.saveAll(Arrays.asList(s1, s2, s3));
-	}
-
+	
 	private void IniciarFiliais() {
 
 		Filial f = new Filial(null, "Filial de Teste");
@@ -63,9 +62,17 @@ public class IthappensApplication implements CommandLineRunner {
 		
 		repoFilial.saveAll(Arrays.asList(f, f2));
 	}
-
+	
+	private void IniciarFormasPagamento() {
+		FormaPagamento f = new FormaPagamento(null, "À VISTA");
+		FormaPagamento f1 = new FormaPagamento(null, "BOLETO");
+		FormaPagamento f2 = new FormaPagamento(null, "CARTÃO");
+		
+		repoFormasPagamnto.saveAll(Arrays.asList(f, f1, f2));
+	}
+	
 	private void IniciarProdutos() {
-
+		
 		Produto p1 = new Produto(null, "Sabonete", 1.99, "11111111111");
 		Produto p2 = new Produto(null, "Creme dental", 3.0, "2222222222");
 		Produto p3 = new Produto(null, "Escova de dentes(3 em 1)", 7.5, "3333333333");
@@ -75,7 +82,19 @@ public class IthappensApplication implements CommandLineRunner {
 		Produto p7 = new Produto(null, "Açúcar 1kg", 2.45, "7777777777");
 		Produto p8 = new Produto(null, "Leite Piracanjuba", 3.99, "8888888888");
 		Produto p9 = new Produto(null, "Biscoito Treloso 3 em 1", 6.45, "9999999999");
-		Produto p10 = new Produto(null, "Vinagre Minhoto", 2.69, "0000000000");		
+		Produto p10 = new Produto(null, "Vinagre Minhoto", 2.69, "0000000000");
+		
 		repoProduto.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10));
+	}
+
+	private void IniciarItensPedido() {
+		
+		//(Integer id, StatusItemPedido status, Integer quantidade, FormaPagamento formaPagamento, Produto produto) {
+		
+		//repoFormasPagamento.findAll().stream().
+		
+		
+		//ItensPedido ip = new ItensPedido(null, 10, )
+		//repoStatus.saveAll(Arrays.asList(s1, s2, s3));
 	}
 }

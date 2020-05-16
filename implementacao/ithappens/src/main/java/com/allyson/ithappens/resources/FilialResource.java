@@ -13,5 +13,6 @@ import com.allyson.ithappens.services.FilialService;
 
 @RestController
 @RequestMapping(value="/Filiais")
-public class FilialResource extends AService<Filial, FilialService>{	
+public class FilialResource extends AService<Filial, FilialService>{
+	
 }

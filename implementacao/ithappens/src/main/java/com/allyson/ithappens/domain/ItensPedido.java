@@ -14,37 +14,82 @@ import com.allyson.ithappens.abstratos.ABase;
 
 @Entity
 public class ItensPedido extends ABase<ItensPedido> {
-
+	
 	private static final long serialVersionUID = 1L;
-	
-	
-	//1 Ativo, 2 cancelado, 3 processado
-		
+			
+	public enum eStatusDoPedido{
+		ativo,
+		cancelado,
+		processado
+	}
 	private Integer Quantidade;
 	public Double ValorPedido;
 
 	@ManyToOne
 	@JoinColumn(name="ProdutoId")	
 	private Produto Produto;
+	
 
 	@ManyToOne
-	@JoinColumn(name="StatusId")	
-	private StatusItemPedido Status;
+	@JoinColumn(name="PedidoEstoqueId")	
+	private PedidoEstoque PedidoEstoque;
+
+	private eStatusDoPedido Status;
+	
+
+	@ManyToOne
+	@JoinColumn(name="FormaPagamentoId")	
 	private FormaPagamento FormaPagamento;
 	
 	public ItensPedido(){
+		
 	}
 
-
-	public ItensPedido(Integer id, StatusItemPedido status, Integer quantidade, Double valorPedido, FormaPagamento formaPagamento, Produto produto) {
+	public ItensPedido(Integer id, Integer quantidade, Double valorPedido, Produto produto, PedidoEstoque pedidoEstoque, eStatusDoPedido status, FormaPagamento formaPagamento) {
 		super();
 		super.setId(id);
-		Status = status;
 		Quantidade = quantidade;
 		ValorPedido = valorPedido;
-		FormaPagamento = formaPagamento;
 		Produto = produto;
+		PedidoEstoque = pedidoEstoque;
+		Status = status;
+		FormaPagamento = formaPagamento;
 	}
+
+	public void CalcularValorPedido(){
+		
+		this.setValorPedido(0.00);
+		
+		if (Produto != null) {
+			Double val = this.Produto.getValor() * this.Quantidade;	
+			this.setValorPedido(val);
+		}
+	}	
+	
+	public PedidoEstoque getPedidoEstoque() {
+		return PedidoEstoque;
+	}
+
+
+	public void setPedidoEstoque(PedidoEstoque pedidoEstoque) {
+		PedidoEstoque = pedidoEstoque;
+	}
+
+
+	public eStatusDoPedido getStatus() {
+		return Status;
+	}
+
+
+	public void setStatus(eStatusDoPedido status) {
+		Status = status;
+	}
+
+
+	public void setValorPedido(Double valorPedido) {
+		ValorPedido = valorPedido;
+	}
+
 
 
 	public Double getValorPedido() {
@@ -52,16 +97,6 @@ public class ItensPedido extends ABase<ItensPedido> {
 	}
 
 
-	public void setValorPedido(Double valorPedido) {
-		ValorPedido = valorPedido;
-	}
-    public StatusItemPedido getStatus() {
-		return Status;
-	}
-
-	public void setStatus(StatusItemPedido status) {
-		Status = status;
-	}
 
 	public Integer getQuantidade() {
 		return Quantidade;
