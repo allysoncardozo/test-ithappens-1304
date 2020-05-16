@@ -10,6 +10,9 @@ public class Estoque extends ABase<Estoque> {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Integer Quantidade;
+	
+	
 	public Estoque(){
 		
 	}
