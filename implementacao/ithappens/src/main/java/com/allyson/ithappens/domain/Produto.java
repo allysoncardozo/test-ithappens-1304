@@ -23,8 +23,20 @@ public class Produto extends ABase<Produto> {
 	@OneToMany(mappedBy = "Produto")
 	private List<ItensPedido> ItensPedido;
 	
+
+	@OneToMany(mappedBy = "Produto")
+	private List<Estoque> Estoques;
+	
 	public Produto(){
 		
+	}
+
+	public List<Estoque> getEstoques() {
+		return Estoques;
+	}
+
+	public void setEstoques(List<Estoque> estoques) {
+		Estoques = estoques;
 	}
 
 	public Produto(Integer id, String nome, Double valor, String codigoDeBarras) {

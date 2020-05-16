@@ -22,9 +22,6 @@ public class ItensPedido extends ABase<ItensPedido> {
 	private Integer Status;	
 	private Integer Quantidade;
 	public Double ValorPedido;
-	
-
-
 
 	@ManyToOne
 	@JoinColumn(name="ProdutoId")	
