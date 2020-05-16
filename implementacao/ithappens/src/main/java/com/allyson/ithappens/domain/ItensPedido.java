@@ -19,21 +19,24 @@ public class ItensPedido extends ABase<ItensPedido> {
 	
 	
 	//1 Ativo, 2 cancelado, 3 processado
-	private Integer Status;	
+		
 	private Integer Quantidade;
 	public Double ValorPedido;
 
 	@ManyToOne
 	@JoinColumn(name="ProdutoId")	
 	private Produto Produto;
-	
+
+	@ManyToOne
+	@JoinColumn(name="StatusId")	
+	private StatusItemPedido Status;
 	private FormaPagamento FormaPagamento;
 	
 	public ItensPedido(){
 	}
 
 
-	public ItensPedido(Integer id, Integer status, Integer quantidade, Double valorPedido, FormaPagamento formaPagamento, Produto produto) {
+	public ItensPedido(Integer id, StatusItemPedido status, Integer quantidade, Double valorPedido, FormaPagamento formaPagamento, Produto produto) {
 		super();
 		super.setId(id);
 		Status = status;
@@ -52,11 +55,11 @@ public class ItensPedido extends ABase<ItensPedido> {
 	public void setValorPedido(Double valorPedido) {
 		ValorPedido = valorPedido;
 	}
-    public Integer getStatus() {
+    public StatusItemPedido getStatus() {
 		return Status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(StatusItemPedido status) {
 		Status = status;
 	}
 

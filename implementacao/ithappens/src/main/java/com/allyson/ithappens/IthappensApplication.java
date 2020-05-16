@@ -10,14 +10,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.allyson.ithappens.classes.Criptografia;
 import com.allyson.ithappens.domain.Filial;
 import com.allyson.ithappens.domain.Produto;
+import com.allyson.ithappens.domain.StatusItemPedido;
 import com.allyson.ithappens.domain.Usuario;
 import com.allyson.ithappens.repositories.FilialRepository;
 import com.allyson.ithappens.repositories.ProdutoRepository;
+import com.allyson.ithappens.repositories.StatusItemPedidoRepository;
 import com.allyson.ithappens.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class IthappensApplication implements CommandLineRunner {
 
+	@Autowired
+	StatusItemPedidoRepository repoStatus;
 	@Autowired
 	FilialRepository repoFilial;
 	@Autowired
@@ -32,6 +36,7 @@ public class IthappensApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		IniciarStatusItemPedido();
 		IniciarUsuario();
 		IniciarFiliais();
 		IniciarProdutos();
@@ -43,6 +48,13 @@ public class IthappensApplication implements CommandLineRunner {
 		repoUsuario.saveAll(Arrays.asList(u));
 	}
 
+	private void IniciarStatusItemPedido() {
+
+		StatusItemPedido s1 = new StatusItemPedido(null, "Ativo");
+		StatusItemPedido s2 = new StatusItemPedido(null, "Cancelado");
+		StatusItemPedido s3 = new StatusItemPedido(null, "Processado");
+		repoStatus.saveAll(Arrays.asList(s1, s2, s3));
+	}
 
 	private void IniciarFiliais() {
 
