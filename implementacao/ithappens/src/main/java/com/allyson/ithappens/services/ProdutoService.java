@@ -14,10 +14,10 @@ import com.allyson.ithappens.repositories.ProdutoRepository;
 @Service
 public class ProdutoService extends ABaseService<Produto, ProdutoRepository>{
 
-	//todas as classes que herdarem de ABAseService terão o método de 
+	/*//todas as classes que herdarem de ABAseService terão o método de 
 	//Buscar produto pelo Codigo de barras
 	public Produto buscarPorCodigoDeBarras(String codigoDeBarras) {	
 		Optional<Produto> obj =((ProdutoRepository)repo).findAll().stream().filter(p -> p.getCodigoDeBarras().equals(codigoDeBarras)).findFirst();
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Cód. Barras " + codigoDeBarras + ", Tipo: " + getGenericName()));
-	}
+	}*/
 }

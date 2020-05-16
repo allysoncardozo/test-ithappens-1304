@@ -7,10 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.allyson.ithappens.classes.Criptografia;
 import com.allyson.ithappens.domain.Filial;
 import com.allyson.ithappens.domain.Produto;
+import com.allyson.ithappens.domain.Usuario;
 import com.allyson.ithappens.repositories.FilialRepository;
 import com.allyson.ithappens.repositories.ProdutoRepository;
+import com.allyson.ithappens.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class IthappensApplication implements CommandLineRunner {
@@ -19,6 +22,8 @@ public class IthappensApplication implements CommandLineRunner {
 	FilialRepository repoFilial;
 	@Autowired
 	ProdutoRepository repoProduto;
+	@Autowired
+	UsuarioRepository repoUsuario;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(IthappensApplication.class, args);	
@@ -27,9 +32,17 @@ public class IthappensApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		IniciarUsuario();
 		IniciarFiliais();
 		IniciarProdutos();
 	}	
+	private void IniciarUsuario() {
+
+		String senhaCriptografada = Criptografia.Criptografar("ithappens");
+		Usuario u = new Usuario(null, "Allyson", senhaCriptografada);		
+		repoUsuario.saveAll(Arrays.asList(u));
+	}
+
 
 	private void IniciarFiliais() {
 
