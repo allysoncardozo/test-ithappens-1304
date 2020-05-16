@@ -33,10 +33,13 @@ public abstract class ABaseService<T, E> {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id " + id + ", Tipo: " + getGenericName()));
 	}
 	
+	
+	
 	protected String getGenericName()
     {
         Class<T> class1 = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];        	
         
 		return class1.getSimpleName();
     }
+	
 }
