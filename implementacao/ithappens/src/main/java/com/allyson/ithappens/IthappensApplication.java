@@ -8,10 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.allyson.ithappens.classes.Criptografia;
+import com.allyson.ithappens.domain.Cliente;
 import com.allyson.ithappens.domain.Filial;
 import com.allyson.ithappens.domain.FormaPagamento;
 import com.allyson.ithappens.domain.Produto;
 import com.allyson.ithappens.domain.Usuario;
+import com.allyson.ithappens.repositories.ClienteRepository;
 import com.allyson.ithappens.repositories.FilialRepository;
 import com.allyson.ithappens.repositories.FormasPagamentoRepository;
 import com.allyson.ithappens.repositories.ItensPedidoRepository;
@@ -31,6 +33,8 @@ public class IthappensApplication implements CommandLineRunner {
 	@Autowired
 	ItensPedidoRepository repoItensPedido;
 	@Autowired
+	ClienteRepository repoCliente;
+	@Autowired
 	FormasPagamentoRepository repoFormasPagamnto;
 
 	
@@ -43,8 +47,9 @@ public class IthappensApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		IniciarUsuario();
 		IniciarFiliais();
-		//IniciarFormasPagamento();
+		IniciarFormasPagamento();
 		IniciarProdutos();
+		IniciarClientes();
 		IniciarItensPedido();
 	}
 
@@ -61,6 +66,19 @@ public class IthappensApplication implements CommandLineRunner {
 		Filial f2 = new Filial(null, "Segunda Filial de Teste");
 		
 		repoFilial.saveAll(Arrays.asList(f, f2));
+	}
+
+	
+	private void IniciarClientes() {
+
+		Cliente c = new Cliente(null, "Allyson Cardozo da Silva");
+		Cliente c1 = new Cliente(null, "Rosita Almeida Silva");
+		Cliente c2 = new Cliente(null, "Emilly Happuque Almeida Silva");
+		Cliente c3 = new Cliente(null, "Melinda Almeida Silva");
+		Cliente c4 = new Cliente(null, "Elizete Cardozo da Silva");
+		Cliente c5 = new Cliente(null, "Antonio Francisco de Melo da Silva");		
+		
+		repoCliente.saveAll(Arrays.asList(c, c1, c2, c3, c4, c5));
 	}
 	
 	private void IniciarFormasPagamento() {

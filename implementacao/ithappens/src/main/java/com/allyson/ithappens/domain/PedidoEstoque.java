@@ -34,11 +34,14 @@ public class PedidoEstoque extends ABase<PedidoEstoque> {
 	@ManyToOne
 	@JoinColumn(name="FilialId")
 	private Filial Filial;
-	
 
 	@ManyToOne
 	@JoinColumn(name="UsuarioId")
 	private Usuario Usuario;
+
+	@ManyToOne
+	@JoinColumn(name="ClienteId")
+	private Cliente Cliente;
 	
 	private String Observacao;
 
