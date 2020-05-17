@@ -9,6 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.allyson.ithappens.abstratos.ABase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class PedidoEstoque extends ABase<PedidoEstoque> {
@@ -23,40 +27,43 @@ public class PedidoEstoque extends ABase<PedidoEstoque> {
 		
 	}
 	
-	public PedidoEstoque(Integer id, eTipoPedidoEstoque tipo, Filial filial, Usuario usuario, String observacao) {
+	public PedidoEstoque(Integer id, eTipoPedidoEstoque tipo, Usuario usuario, Cliente cliente, String observacao) {
 		super();
 		super.setId(id);
 		Tipo = tipo;
-		Filial = filial;
 		Usuario = usuario;
+		Cliente = cliente;
+		Observacao = observacao;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="FilialId")
-	private Filial Filial;
-
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="UsuarioId")
 	private Usuario Usuario;
 
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="ClienteId")
 	private Cliente Cliente;
 	
 	private String Observacao;
-
+    
+	/*
+	@JsonBackReference
 	@OneToMany(mappedBy = "PedidoEstoque")
 	private List<ItensPedido> ItensPedido = new ArrayList<ItensPedido>();
+	*/
 	
 	private eTipoPedidoEstoque Tipo;
 	
+	/*
 	public List<ItensPedido> getItensPedido() {
 		return ItensPedido;
 	}
 
 	public void setItensPedido(List<ItensPedido> itensPedido) {
 		ItensPedido = itensPedido;
-	}
+	}*/
 
 	public eTipoPedidoEstoque getTipo() {
 		return Tipo;
@@ -66,12 +73,14 @@ public class PedidoEstoque extends ABase<PedidoEstoque> {
 		Tipo = tipo;
 	}
 
-	public Filial getFilial() {
-		return Filial;
+
+
+	public Cliente getCliente() {
+		return Cliente;
 	}
 
-	public void setFilial(Filial filial) {
-		Filial = filial;
+	public void setCliente(Cliente cliente) {
+		Cliente = cliente;
 	}
 
 	public Usuario getUsuario() {

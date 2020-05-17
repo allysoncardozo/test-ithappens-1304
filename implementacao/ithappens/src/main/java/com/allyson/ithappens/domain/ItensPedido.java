@@ -35,17 +35,17 @@ public class ItensPedido extends ABase<ItensPedido> {
 	private FormaPagamento FormaPagamento;
 	
 	public ItensPedido(){
-		
+		this.Status = eStatusDoPedido.ativo;
 	}
 
-	public ItensPedido(Integer id, Integer quantidade, Double valorPedido, Produto produto, PedidoEstoque pedidoEstoque, eStatusDoPedido status, FormaPagamento formaPagamento) {
+	public ItensPedido(Integer id, Integer quantidade, Double valorPedido, Produto produto, PedidoEstoque pedidoEstoque, FormaPagamento formaPagamento) {
 		super();
 		super.setId(id);
 		Quantidade = quantidade;
 		ValorPedido = valorPedido;
 		Produto = produto;
 		PedidoEstoque = pedidoEstoque;
-		Status = status;
+		Status = eStatusDoPedido.ativo;
 		FormaPagamento = formaPagamento;
 	}
 

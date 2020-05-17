@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.allyson.ithappens.abstratos.ABase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto extends ABase<Produto> {
@@ -18,23 +20,14 @@ public class Produto extends ABase<Produto> {
 	private Double Valor;
 	private String CodigoDeBarras;
 	
-	
+	/*
+	@JsonBackReference
 	@OneToMany(mappedBy = "Produto")
 	private List<ItensPedido> ItensPedido = new ArrayList<ItensPedido>();	
-
-	@OneToMany(mappedBy = "Produto")
-	private List<Estoque> Estoques;
+    */
 	
 	public Produto(){
 		
-	}
-
-	public List<Estoque> getEstoques() {
-		return Estoques;
-	}
-
-	public void setEstoques(List<Estoque> estoques) {
-		Estoques = estoques;
 	}
 
 	public Produto(Integer id, String nome, Double valor, String codigoDeBarras) {
@@ -45,15 +38,14 @@ public class Produto extends ABase<Produto> {
 		Nome = nome;
 		Valor = valor;
 	}
-
-
+/*
 	public List<ItensPedido> getItensPedido() {
 		return ItensPedido;
 	}
 
 	public void setItensPedido(List<ItensPedido> itensPedido) {
 		ItensPedido = itensPedido;
-	}
+	}*/
 
 	public String getNome() {
 		return Nome;

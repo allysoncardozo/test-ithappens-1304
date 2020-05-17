@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.allyson.ithappens.abstratos.ABase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente extends ABase<Cliente> {
@@ -16,9 +18,11 @@ public class Cliente extends ABase<Cliente> {
 
 	private String Nome;
 	
+	/*
+	@JsonBackReference
 	@OneToMany(mappedBy = "Cliente")
 	private List<PedidoEstoque> PedidoEstoques = new ArrayList<PedidoEstoque>();
-	
+	*/
 	
 	public Cliente(){
 		

@@ -1,6 +1,8 @@
 package com.allyson.ithappens;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,14 +11,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.allyson.ithappens.classes.Criptografia;
 import com.allyson.ithappens.domain.Cliente;
+import com.allyson.ithappens.domain.Estoque;
 import com.allyson.ithappens.domain.Filial;
 import com.allyson.ithappens.domain.FormaPagamento;
+import com.allyson.ithappens.domain.PedidoEstoque;
+import com.allyson.ithappens.domain.PedidoEstoque.eTipoPedidoEstoque;
 import com.allyson.ithappens.domain.Produto;
 import com.allyson.ithappens.domain.Usuario;
 import com.allyson.ithappens.repositories.ClienteRepository;
+import com.allyson.ithappens.repositories.EstoqueRepository;
 import com.allyson.ithappens.repositories.FilialRepository;
 import com.allyson.ithappens.repositories.FormasPagamentoRepository;
-import com.allyson.ithappens.repositories.ItensPedidoRepository;
+import com.allyson.ithappens.repositories.PedidoEstoqueRepository;
 import com.allyson.ithappens.repositories.ProdutoRepository;
 import com.allyson.ithappens.repositories.UsuarioRepository;
 
@@ -25,13 +31,15 @@ public class IthappensApplication implements CommandLineRunner {
 
 
 	@Autowired
+	EstoqueRepository repoEstoque;
+	@Autowired
 	UsuarioRepository repoUsuario;
 	@Autowired
 	FilialRepository repoFilial;
 	@Autowired
 	ProdutoRepository repoProduto;
 	@Autowired
-	ItensPedidoRepository repoItensPedido;
+	PedidoEstoqueRepository repoPedido;
 	@Autowired
 	ClienteRepository repoCliente;
 	@Autowired
@@ -50,14 +58,14 @@ public class IthappensApplication implements CommandLineRunner {
 		IniciarFormasPagamento();
 		IniciarProdutos();
 		IniciarClientes();
-		IniciarItensPedido();
+		IniciarEstoque();
+		IniciarPedidoEstoque();
 	}
 
 	private void IniciarUsuario() {
 		String senhaCriptografada = Criptografia.Criptografar("ithappens");
 		Usuario u = new Usuario(null, "Allyson", senhaCriptografada);		
 		repoUsuario.saveAll(Arrays.asList(u));
-		//UsuarioLogado.AutenticarUsuario(u.getId(), "ithappens");
 	}
 	
 	private void IniciarFiliais() {
@@ -89,6 +97,26 @@ public class IthappensApplication implements CommandLineRunner {
 		repoFormasPagamnto.saveAll(Arrays.asList(f, f1, f2));
 	}
 	
+	private void IniciarEstoque() {
+
+		List<Estoque> lista = new ArrayList<>();
+		
+		List<Produto> produtos = repoProduto.findAll();
+		List<Filial> filiais = repoFilial.findAll();
+
+		produtos.forEach(prod -> {
+			filiais.forEach(est -> {			
+				
+				var e = new Estoque(null, 100, prod, est);
+				lista.add(e);
+				
+			});
+		});
+		
+		
+		repoEstoque.saveAll(lista);
+	}
+	
 	private void IniciarProdutos() {
 		
 		Produto p1 = new Produto(null, "Sabonete", 1.99, "11111111111");
@@ -105,14 +133,10 @@ public class IthappensApplication implements CommandLineRunner {
 		repoProduto.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10));
 	}
 
-	private void IniciarItensPedido() {
+	
+	private void IniciarPedidoEstoque() {
+
 		
-		//(Integer id, StatusItemPedido status, Integer quantidade, FormaPagamento formaPagamento, Produto produto) {
-		
-		//repoFormasPagamento.findAll().stream().
-		
-		
-		//ItensPedido ip = new ItensPedido(null, 10, )
-		//repoStatus.saveAll(Arrays.asList(s1, s2, s3));
+		//repoFormasPagamnto.saveAll(Arrays.asList(f, f1, f2));
 	}
 }

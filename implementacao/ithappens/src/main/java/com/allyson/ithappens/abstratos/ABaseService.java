@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.allyson.ithappens.domain.Produto;
 import com.allyson.ithappens.exceptions.ObjectNotFoundException;
 
 
@@ -75,5 +76,4 @@ public abstract class ABaseService<T, E> {
         Class<T> class1 = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];        	        
 		return class1.getSimpleName();
     }
-	
 }

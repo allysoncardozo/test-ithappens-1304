@@ -8,16 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.allyson.ithappens.abstratos.ABase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 @Entity
 public class Filial extends ABase<Filial> {
 
 	private static final long serialVersionUID = 1L;	
 	private String Nome;
-
-	@OneToMany(mappedBy = "Filial")
-	private List<Estoque> Estoques = new ArrayList<Estoque>();
-	
 	
 	public Filial(){
 		
@@ -28,15 +28,6 @@ public class Filial extends ABase<Filial> {
 		super();
 		super.setId(id);
 		Nome = nome;
-	}
-
-	public List<Estoque> getEstoques() {
-		return Estoques;
-	}
-
-
-	public void setEstoques(List<Estoque> estoques) {
-		Estoques = estoques;
 	}
 
 
