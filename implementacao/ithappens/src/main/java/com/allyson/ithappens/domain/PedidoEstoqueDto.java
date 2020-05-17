@@ -19,7 +19,7 @@ public class PedidoEstoqueDto extends ABase<PedidoEstoqueDto>{
 		itens.add(item);
 	}
 	private PedidoEstoque pedidoEstoque;
-	private List<ItensPedido> itens;
+	private List<ItensPedido> itens = new ArrayList<ItensPedido>();
 	
 	public PedidoEstoque getPedidoEstoque() {
 		return pedidoEstoque;

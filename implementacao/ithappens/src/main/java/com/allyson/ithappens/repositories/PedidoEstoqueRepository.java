@@ -11,8 +11,6 @@ import com.allyson.ithappens.domain.PedidoEstoque;
 
 @Repository
 public interface PedidoEstoqueRepository extends JpaRepository<PedidoEstoque, Integer>{
-
-	//@Query(value = "select * FROM ITENS_PEDIDO WHERE PEDIDO_ESTOQUE_ID = ?1", nativeQuery = true)
-	@Query(value = "SELECT id FROM ITENS_PEDIDO where pedido_estoque_id = 1", nativeQuery = true)	
+	@Query(value = "SELECT * FROM ITENS_PEDIDO where pedido_estoque_id = 1", nativeQuery = true)	
 	public List<ItensPedido> findItensByVendaId(Integer vendaId);
 }
