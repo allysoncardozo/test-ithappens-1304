@@ -50,6 +50,24 @@ public abstract class ABaseService<T, E> {
     void deletar(@PathVariable Integer id) {
     	((JpaRepository)repo).deleteById(id);
     }
+
+	// Atuaizar
+	public void Atualizar(T obj) {		
+		((JpaRepository)repo).save(obj);
+	}
+	
+	public T Salvar(T obj) {
+		ABase base = ((ABase<T>)obj);
+		
+		if (base.getId() != null) {
+			Optional<T> a = ((JpaRepository)repo).findById(base.getId());	
+
+			if (a != null) {				
+				return (T)((JpaRepository)repo).save(obj);
+			}
+		}
+		return (T)((JpaRepository)repo).save(obj);
+	}
 	
 	//método que retorna o nome da classe
 	protected String getGenericName()
