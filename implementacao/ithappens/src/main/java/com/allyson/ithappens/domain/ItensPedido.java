@@ -2,10 +2,13 @@ package com.allyson.ithappens.domain;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import com.allyson.ithappens.abstratos.ABase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity
+@Entity(name = "ItensPedido")
 public class ItensPedido extends ABase<ItensPedido> {
 	
 	private static final long serialVersionUID = 1L;
@@ -17,12 +20,13 @@ public class ItensPedido extends ABase<ItensPedido> {
 	}
 	private Integer Quantidade;
 	public Double ValorPedido;
-
+	
+	
 	@ManyToOne
 	@JoinColumn(name="ProdutoId")	
 	private Produto Produto;
 	
-
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="PedidoEstoqueId")	
 	private PedidoEstoque PedidoEstoque;

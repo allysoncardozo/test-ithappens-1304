@@ -46,22 +46,26 @@ public class PedidoEstoque extends ABase<PedidoEstoque> {
 	
 	private String Observacao;
     
+	private eTipoPedidoEstoque Tipo;
 	/*
+	@JsonIgnore
+	@OneToMany(mappedBy = "PedidoEstoque")
+	private List<ItensPedido> ItensPedido = new ArrayList<ItensPedido>();
+	
+	
 	@JsonBackReference
 	@OneToMany(mappedBy = "PedidoEstoque")
 	private List<ItensPedido> ItensPedido = new ArrayList<ItensPedido>();
-	*/
-	
-	private eTipoPedidoEstoque Tipo;
-	
-	/*
+		
 	public List<ItensPedido> getItensPedido() {
 		return ItensPedido;
 	}
 
 	public void setItensPedido(List<ItensPedido> itensPedido) {
 		ItensPedido = itensPedido;
-	}*/
+	}
+	*/
+	
 
 	public eTipoPedidoEstoque getTipo() {
 		return Tipo;
