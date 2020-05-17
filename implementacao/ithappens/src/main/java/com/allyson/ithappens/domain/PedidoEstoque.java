@@ -36,12 +36,10 @@ public class PedidoEstoque extends ABase<PedidoEstoque> {
 		Observacao = observacao;
 	}
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="UsuarioId")
 	private Usuario Usuario;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="ClienteId")
 	private Cliente Cliente;

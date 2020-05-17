@@ -36,17 +36,21 @@ public class ItensPedido extends ABase<ItensPedido> {
 	
 	public ItensPedido(){
 		this.Status = eStatusDoPedido.ativo;
+		this.setValorPedido(ObterValor());
+	}
+	private Double ObterValor() {
+		return (this.Produto == null ? 0.00 : Produto.getValor() * Quantidade);
 	}
 
-	public ItensPedido(Integer id, Integer quantidade, Double valorPedido, Produto produto, PedidoEstoque pedidoEstoque, FormaPagamento formaPagamento) {
+	public ItensPedido(Integer id, Integer quantidade, Produto produto, PedidoEstoque pedidoEstoque, FormaPagamento formaPagamento) {
 		super();
 		super.setId(id);
-		Quantidade = quantidade;
-		ValorPedido = valorPedido;
+		Quantidade = quantidade;		
 		Produto = produto;
 		PedidoEstoque = pedidoEstoque;
 		Status = eStatusDoPedido.ativo;
 		FormaPagamento = formaPagamento;
+		this.setValorPedido(ObterValor());
 	}
 
 	public void CalcularValorPedido(){

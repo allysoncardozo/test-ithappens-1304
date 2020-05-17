@@ -14,14 +14,16 @@ import com.allyson.ithappens.domain.Cliente;
 import com.allyson.ithappens.domain.Estoque;
 import com.allyson.ithappens.domain.Filial;
 import com.allyson.ithappens.domain.FormaPagamento;
+import com.allyson.ithappens.domain.ItensPedido;
 import com.allyson.ithappens.domain.PedidoEstoque;
-import com.allyson.ithappens.domain.PedidoEstoque.eTipoPedidoEstoque;
 import com.allyson.ithappens.domain.Produto;
 import com.allyson.ithappens.domain.Usuario;
+import com.allyson.ithappens.domain.PedidoEstoque.eTipoPedidoEstoque;
 import com.allyson.ithappens.repositories.ClienteRepository;
 import com.allyson.ithappens.repositories.EstoqueRepository;
 import com.allyson.ithappens.repositories.FilialRepository;
 import com.allyson.ithappens.repositories.FormasPagamentoRepository;
+import com.allyson.ithappens.repositories.ItensPedidoRepository;
 import com.allyson.ithappens.repositories.PedidoEstoqueRepository;
 import com.allyson.ithappens.repositories.ProdutoRepository;
 import com.allyson.ithappens.repositories.UsuarioRepository;
@@ -45,6 +47,9 @@ public class IthappensApplication implements CommandLineRunner {
 	@Autowired
 	FormasPagamentoRepository repoFormasPagamnto;
 
+	@Autowired
+	ItensPedidoRepository repoItemPedido;
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(IthappensApplication.class, args);	
@@ -58,8 +63,9 @@ public class IthappensApplication implements CommandLineRunner {
 		IniciarFormasPagamento();
 		IniciarProdutos();
 		IniciarClientes();
-		IniciarEstoque();
 		IniciarPedidoEstoque();
+		IniciarEstoque();
+		IniciarItemPedido();
 	}
 
 	private void IniciarUsuario() {
@@ -133,10 +139,36 @@ public class IthappensApplication implements CommandLineRunner {
 		repoProduto.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10));
 	}
 
-	
 	private void IniciarPedidoEstoque() {
-
 		
-		//repoFormasPagamnto.saveAll(Arrays.asList(f, f1, f2));
+		List<Usuario> usuarios = repoUsuario.findAll();
+		List<Cliente> clientes = repoCliente.findAll();
+
+		List<PedidoEstoque> lista = new ArrayList<>();
+		usuarios.forEach(user -> {
+			clientes.forEach(cli -> {
+				PedidoEstoque pe = new PedidoEstoque(null, eTipoPedidoEstoque.saida, user, cli, "CPF na nota, Senhor?");
+				lista.add(pe);
+			});
+		});
+		
+		repoPedido.saveAll(lista);
+	}
+	
+	private void IniciarItemPedido() {
+		//(Integer id, Integer quantidade, Produto produto, PedidoEstoque pedidoEstoque, FormaPagamento formaPagamento) {
+		FormaPagamento formaPagamento = repoFormasPagamnto.getOne(1);
+		List<Produto> produtos = repoProduto.findAll();
+		List<ItensPedido> itens = new ArrayList<ItensPedido>();
+		
+		List<PedidoEstoque> vendas = repoPedido.findAll();
+		produtos.forEach(prod -> {
+		vendas.forEach(venda -> {
+			ItensPedido item = new ItensPedido(null, 10, prod, venda, formaPagamento); 			
+			itens.add(item);
+		});
+		});;
+		
+		repoItemPedido.saveAll(itens);
 	}
 }
