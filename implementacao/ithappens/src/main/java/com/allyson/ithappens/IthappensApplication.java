@@ -16,9 +16,9 @@ import com.allyson.ithappens.domain.Filial;
 import com.allyson.ithappens.domain.FormaPagamento;
 import com.allyson.ithappens.domain.ItensPedido;
 import com.allyson.ithappens.domain.PedidoEstoque;
+import com.allyson.ithappens.domain.PedidoEstoque.eTipoPedidoEstoque;
 import com.allyson.ithappens.domain.Produto;
 import com.allyson.ithappens.domain.Usuario;
-import com.allyson.ithappens.domain.PedidoEstoque.eTipoPedidoEstoque;
 import com.allyson.ithappens.repositories.ClienteRepository;
 import com.allyson.ithappens.repositories.EstoqueRepository;
 import com.allyson.ithappens.repositories.FilialRepository;
@@ -27,6 +27,7 @@ import com.allyson.ithappens.repositories.ItensPedidoRepository;
 import com.allyson.ithappens.repositories.PedidoEstoqueRepository;
 import com.allyson.ithappens.repositories.ProdutoRepository;
 import com.allyson.ithappens.repositories.UsuarioRepository;
+import com.allyson.ithappens.services.ItensPedidoService;
 
 @SpringBootApplication
 public class IthappensApplication implements CommandLineRunner {
@@ -48,7 +49,7 @@ public class IthappensApplication implements CommandLineRunner {
 	FormasPagamentoRepository repoFormasPagamnto;
 
 	@Autowired
-	ItensPedidoRepository repoItemPedido;
+	ItensPedidoRepository itemPedidoRepository;
 
 	
 	public static void main(String[] args) {
@@ -143,18 +144,21 @@ public class IthappensApplication implements CommandLineRunner {
 		
 		List<Usuario> usuarios = repoUsuario.findAll();
 		List<Cliente> clientes = repoCliente.findAll();
+		Filial filial = repoFilial.getOne(1);
 
 		List<PedidoEstoque> lista = new ArrayList<>();
+		
 		usuarios.forEach(user -> {
 			clientes.forEach(cli -> {
-				PedidoEstoque pe = new PedidoEstoque(null, eTipoPedidoEstoque.saida, user, cli, "CPF na nota, Senhor?");
+				PedidoEstoque pe = new PedidoEstoque(null, eTipoPedidoEstoque.saida, filial, user, cli, "CPF na nota, Senhor?", 0.00);
 				lista.add(pe);
 			});
 		});
 		
 		repoPedido.saveAll(lista);
 	}
-	
+	@Autowired
+	ItensPedidoService itemService;
 	private void IniciarItemPedido() {
 		//(Integer id, Integer quantidade, Produto produto, PedidoEstoque pedidoEstoque, FormaPagamento formaPagamento) {
 		FormaPagamento formaPagamento = repoFormasPagamnto.getOne(1);
@@ -164,11 +168,19 @@ public class IthappensApplication implements CommandLineRunner {
 		List<PedidoEstoque> vendas = repoPedido.findAll();
 		produtos.forEach(prod -> {
 		vendas.forEach(venda -> {
-			ItensPedido item = new ItensPedido(null, 10, prod, venda, formaPagamento); 			
+			ItensPedido item = new ItensPedido(null, 10, prod, venda, formaPagamento);			
 			itens.add(item);
+			});
 		});
-		});;
 		
-		repoItemPedido.saveAll(itens);
+		//para forçar as validações e diminuir a quantidade dentro do estoque
+		itens.forEach(p -> { itemService.Salvar(p); });
+		vendas.forEach(vd -> {
+			   Double somatorio = itens.stream().filter(it -> it.getPedidoEstoque().getId().equals(vd.getId())).mapToDouble(d -> d.getValorPedido()).sum();
+			   vd.setValor(somatorio);			   
+			});
+		repoPedido.saveAll(vendas);
+		
+		itemPedidoRepository.saveAll(itens);
 	}
 }

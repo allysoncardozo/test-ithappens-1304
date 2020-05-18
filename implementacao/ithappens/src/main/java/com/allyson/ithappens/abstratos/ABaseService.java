@@ -1,6 +1,8 @@
 package com.allyson.ithappens.abstratos;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,14 +11,8 @@ import javax.persistence.MappedSuperclass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.allyson.ithappens.domain.Produto;
 import com.allyson.ithappens.exceptions.ObjectNotFoundException;
 
 
@@ -68,6 +64,26 @@ public abstract class ABaseService<T, E> {
 			}
 		}
 		return (T)((JpaRepository)repo).save(obj);
+	}
+
+	public List<T> Salvar(List<T> objs) {
+		List<T> lista = new ArrayList<T>();
+		
+		objs.forEach(obj -> {
+			ABase base = ((ABase<T>)obj);
+			
+			if (base.getId() != null) {
+				Optional<T> a = ((JpaRepository)repo).findById(base.getId());	
+	
+				if (a != null) {
+					lista.add(obj);
+				}
+			}
+		});
+		if (lista.size() > 0)
+			return (List<T>)((JpaRepository)repo).saveAll(Arrays.asList(lista));
+		
+		return (List<T>)((JpaRepository)repo).saveAll(Arrays.asList(objs));
 	}
 	
 	//método que retorna o nome da classe

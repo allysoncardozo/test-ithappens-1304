@@ -1,18 +1,10 @@
 package com.allyson.ithappens.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.allyson.ithappens.abstratos.ABase;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class PedidoEstoque extends ABase<PedidoEstoque> {
@@ -27,13 +19,15 @@ public class PedidoEstoque extends ABase<PedidoEstoque> {
 		
 	}
 	
-	public PedidoEstoque(Integer id, eTipoPedidoEstoque tipo, Usuario usuario, Cliente cliente, String observacao) {
+	public PedidoEstoque(Integer id, eTipoPedidoEstoque tipo, Filial filial, Usuario usuario, Cliente cliente, String observacao, Double valor) {
 		super();
 		super.setId(id);
 		Tipo = tipo;
+		Filial = filial;
 		Usuario = usuario;
 		Cliente = cliente;
 		Observacao = observacao;
+		Valor = valor;
 	}
 
 	@ManyToOne
@@ -44,28 +38,24 @@ public class PedidoEstoque extends ABase<PedidoEstoque> {
 	@JoinColumn(name="ClienteId")
 	private Cliente Cliente;
 	
+
+	@ManyToOne
+	@JoinColumn(name="FiialId")
+	private Filial Filial;
+	
+	
 	private String Observacao;
-    
+    private Double Valor;
 	private eTipoPedidoEstoque Tipo;
-	/*
-	@JsonIgnore
-	@OneToMany(mappedBy = "PedidoEstoque")
-	private List<ItensPedido> ItensPedido = new ArrayList<ItensPedido>();
 	
-	
-	@JsonBackReference
-	@OneToMany(mappedBy = "PedidoEstoque")
-	private List<ItensPedido> ItensPedido = new ArrayList<ItensPedido>();
-		
-	public List<ItensPedido> getItensPedido() {
-		return ItensPedido;
+
+	public Double getValor() {
+		return Valor;
 	}
 
-	public void setItensPedido(List<ItensPedido> itensPedido) {
-		ItensPedido = itensPedido;
+	public void setValor(Double valor) {
+		Valor = valor;
 	}
-	*/
-	
 
 	public eTipoPedidoEstoque getTipo() {
 		return Tipo;
@@ -76,6 +66,15 @@ public class PedidoEstoque extends ABase<PedidoEstoque> {
 	}
 
 
+
+
+	public Filial getFilial() {
+		return Filial;
+	}
+
+	public void setFilial(Filial filial) {
+		Filial = filial;
+	}
 
 	public Cliente getCliente() {
 		return Cliente;

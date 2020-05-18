@@ -31,16 +31,9 @@ public class PedidoEstoqueResource extends AService<PedidoEstoque, PedidoEstoque
 		PedidoEstoque venda = ((PedidoEstoqueService)service).buscar(vendaId);
 		pedido.setId(vendaId);
 		pedido.setPedidoEstoque(venda);
-		PedidoEstoqueRepository repositorio = (PedidoEstoqueRepository)((PedidoEstoqueService)service).repo;
-		
 		List<ItensPedido> lista = repo.findAll().stream().filter(item -> item.getPedidoEstoque().getId().equals(vendaId)).collect(Collectors.toList());// findItensByVendaId(vendaId);
 		lista.forEach(p -> { pedido.AdicionarItem(p); });
-		//pedido.setItens(lista);
-		//System.out.println(lista);
-	
 		
-		
-
 		return ResponseEntity.ok().body(pedido);
 	}
 

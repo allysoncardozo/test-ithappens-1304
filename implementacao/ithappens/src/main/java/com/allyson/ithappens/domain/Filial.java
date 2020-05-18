@@ -1,17 +1,9 @@
 package com.allyson.ithappens.domain;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
 import com.allyson.ithappens.abstratos.ABase;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 @Entity
 public class Filial extends ABase<Filial> {
